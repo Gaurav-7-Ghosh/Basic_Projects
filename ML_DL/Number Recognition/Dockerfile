@@ -1,12 +1,16 @@
 FROM python:3.9-slim
 
-# Copy app source + model weights
-COPY main.py /app/
-COPY resnet_model.keras /app/
-COPY test_images/ /app/
 
 # Set working dir
 WORKDIR /app
+
+# Copy app source + model weights
+COPY main.py /app/
+COPY main.py .
+COPY resnet_model.keras .
+COPY test_images/ ./test_images
+
+
 
 # Install Python deps
 COPY requirements.txt .
