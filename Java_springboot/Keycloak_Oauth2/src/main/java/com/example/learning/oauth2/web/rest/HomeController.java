@@ -11,15 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 public class HomeController {
 
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-    @GetMapping("")
-    public String home(OAuth2AuthenticationToken auth2AccessToken)
+    @GetMapping("/client/api")
+    public String clientHome(OAuth2AuthenticationToken auth2AccessToken)
     {
-        logger.debug("First logs");
+        logger.debug("Client logs");
+        String email = auth2AccessToken.getPrincipal().getAttribute("email");
+        return "home: " + email;
+    }
+
+    @GetMapping("/service/api")
+    public String serviceHome(OAuth2AuthenticationToken auth2AccessToken)
+    {
+        logger.debug("Service logs");
         String email = auth2AccessToken.getPrincipal().getAttribute("email");
         return "home: " + email;
     }
