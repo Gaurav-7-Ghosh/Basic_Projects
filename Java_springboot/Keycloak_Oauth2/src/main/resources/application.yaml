@@ -1,0 +1,37 @@
+logging:
+  level:
+    com.example.learning: DEBUG
+spring:
+  application:
+    name: demo
+  security:
+    oauth2:
+      client:
+        registration:
+          client: # /client/**
+            provider: client-provider
+            client-id: oauth2-demo
+            client-secret: Ed5tUxfgDhnyrphGzh61kx4gvnQ1XTSd
+            scope: openid,profile,roles
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8081/login/oauth2/code/{registrationId}
+          service: # /service/**
+            provider: service-provider
+            client-id: oauth2-demo
+            client-secret: J3oPcRZnnSldoYmv5kOx9Lx1iZtN3fcO
+            scope: openid,profile,roles
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8081/login/oauth2/code/{registrationId}
+        provider:
+          client-provider:
+            issuer-uri: http://localhost:8080/realms/TestRealm      # ← Your realm 1
+          service-provider:
+            issuer-uri: http://localhost:8080/realms/TestRealm2
+server:
+  port: 8081
+  servlet:
+    session:
+      cookie:
+        same-site: "Lax"
+        http-only: true
+        secure: false
